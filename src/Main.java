@@ -44,5 +44,6 @@ public class Main {
         double radius = sc.nextDouble();
         double area = 3.14 * Math.pow(radius, 2);
         System.out.println("The area is " + area);
+
     }
 }
