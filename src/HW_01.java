@@ -7,9 +7,10 @@
 import java.util.Scanner;
 import java.lang.Math;
 
-public class Main {
-    public static void main(String[] args) {
+public class HW_01 {
+    public static void HW01() {
         Scanner sc = new Scanner(System.in);
+        System.out.flush();
 
         System.out.println("##################################################");
         System.out.println("First Question");
@@ -44,6 +45,5 @@ public class Main {
         double radius = sc.nextDouble();
         double area = 3.14 * Math.pow(radius, 2);
         System.out.println("The area is " + area);
-
     }
 }
