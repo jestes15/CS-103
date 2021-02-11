@@ -1,9 +1,13 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class programmingAssign1
 {
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
+
         questions.separator(1);
         System.out.println();
         questions.q1();
@@ -15,6 +19,10 @@ public class programmingAssign1
         questions.separator(3);
         System.out.println();
         questions.q3();
+        System.out.println();
+        questions.separator(4);
+        System.out.println();
+        questions.q4();
     }
 }
 
@@ -184,10 +192,84 @@ class questions
         System.out.printf("Your GPA is %d and your grade is %s", quality_points/4, myGrade);
     }
 
+    public static void q4()
+    {
+        String name, age, major, gender, userInfo, dir = "/StudentInfo/", fileName = "StudentInfo";
+        System.out.flush();
+
+        System.out.println("What is the students name?");
+        sc.nextLine();
+        name = sc.nextLine();
+        System.out.println("What is the students age?");
+        age = sc.nextLine();
+        System.out.println("What is the students major?");
+        major = sc.nextLine();
+        System.out.println("What is the students gender?");
+        gender = sc.nextLine();
+
+        userInfo = name + "\n" + age + "\n" + major + "\n" + gender + "\n";
+        try {
+            classBufferedWriter.writeBufferedWriter(userInfo, dir, fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void separator(int a)
     {
         System.out.println("#################################");
         System.out.printf("Question %d\n", a);
         System.out.println("#################################");
+    }
+}
+
+class classBufferedWriter
+{
+
+    public static void writeBufferedWriter(String data, String getDirectory, String getFileName) throws IOException
+    {
+
+        String errorPath = System.getProperty("user.dir") + "/ERROR-CACHE/";
+        String errorPathToFile = System.getProperty("user.dir") + "/ERROR-CACHE/ERROR-1.txt";
+
+        String path = System.getProperty("user.dir") + getDirectory;
+        String pathToFile = System.getProperty("user.dir") + getDirectory + getFileName + ".txt";
+
+        File file = new File(path);
+        File fileWrite = new File(pathToFile);
+        if (file.mkdir()) {
+            System.out.println("Directory created");
+        }
+
+        File errorFile = new File(errorPath);
+        if (errorFile.mkdir()) {
+            System.out.println("Directory created");
+        }
+
+        FileWriter fr = new FileWriter(fileWrite, true);
+        BufferedWriter br = new BufferedWriter(fr);
+
+        try {
+            br.write(data + "\r\n");
+            br.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            FileWriter fw = new FileWriter(errorPathToFile, true);
+            fw.write(String.valueOf(e));
+            fw.close();
+        } finally {
+            try {
+                br.close();
+                fr.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+
+                FileWriter fw = new FileWriter(errorPathToFile, true);
+                fw.write(String.valueOf(e));
+                fw.close();
+            }
+        }
+
     }
 }
