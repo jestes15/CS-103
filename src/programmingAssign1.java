@@ -1,7 +1,10 @@
+import org.jetbrains.annotations.NotNull;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class programmingAssign1
@@ -50,7 +53,7 @@ class questions
                 System.out.print("What is the second number: ");
                 input2 = sc.nextDouble();
 
-                System.out.printf("The result is: %g", input1 + input2);
+                System.out.printf("The result is: %g\n", input1 + input2);
             }
             case "-" -> {
                 System.out.print("What is the first number: ");
@@ -93,22 +96,22 @@ class questions
                 System.out.printf("The result is: %g\n", Math.pow(input1, input2));
             }
             case "sin" -> {
-                System.out.print("What is the number (in radians): ");
+                System.out.print("What is the number (in degrees): ");
                 input1 = sc.nextDouble();
 
-                System.out.printf("The result is: %g\n", Math.sin(input1));
+                System.out.printf("The result is: %g\n", Math.sin(toDegrees(input1)));
             }
             case "cos" -> {
-                System.out.print("What is the number (in radians): ");
+                System.out.print("What is the number (in degrees): ");
                 input1 = sc.nextDouble();
 
-                System.out.printf("The result is: %g\n", Math.cos(input1));
+                System.out.printf("The result is: %g\n", Math.cos(toDegrees(input1)));
             }
             case "tan" -> {
-                System.out.print("What is the number (in radians): ");
+                System.out.print("What is the number (in degrees): ");
                 input1 = sc.nextDouble();
 
-                System.out.printf("The result is: %g\n", Math.tan(input1));
+                System.out.printf("The result is: %g\n", Math.tan(toDegrees(input1)));
             }
             case "sqrt" -> {
                 System.out.print("What your number: ");
@@ -116,6 +119,7 @@ class questions
 
                 System.out.printf("The result is: %g\n", Math.sqrt(input1));
             }
+            default -> System.out.println("I'm sorry, but that is not an option.");
         }
     }
 
@@ -169,19 +173,19 @@ class questions
 
         int quality_points;
         if (gpa >= 90) {
-            quality_points = 16;
+            quality_points = 12;
             myGrade = Grades.A;
         }
         else if (gpa >= 80) {
-            quality_points = 12;
+            quality_points = 9;
             myGrade = Grades.B;
         }
         else if (gpa >= 70) {
-            quality_points = 8;
+            quality_points = 6;
             myGrade = Grades.C;
         }
         else if (gpa >= 60) {
-            quality_points = 4;
+            quality_points = 3;
             myGrade = Grades.D;
         }
         else {
@@ -189,13 +193,13 @@ class questions
             myGrade = Grades.F;
         }
 
-        System.out.printf("Your GPA is %d and your grade is %s", quality_points/4, myGrade);
+        System.out.printf("Your GPA is %d and your grade is %s", quality_points/3, myGrade);
     }
 
     public static void q4()
     {
-        String name, age, major, gender, userInfo, dir = "/StudentInfo/", fileName = "StudentInfo";
-        System.out.flush();
+        String[] OS = classBufferedWriter.OsInfo();
+        String name, age, major, gender, userInfo, dir = OS[1], fileName = "StudentInfo";
 
         System.out.println("What is the students name?");
         sc.nextLine();
@@ -221,6 +225,11 @@ class questions
         System.out.printf("Question %d\n", a);
         System.out.println("#################################");
     }
+
+    public static double toDegrees(double deg)
+    {
+        return deg * (Math.PI / 180.0);
+    }
 }
 
 class classBufferedWriter
@@ -228,9 +237,9 @@ class classBufferedWriter
 
     public static void writeBufferedWriter(String data, String getDirectory, String getFileName) throws IOException
     {
-
-        String errorPath = System.getProperty("user.dir") + "/ERROR-CACHE/";
-        String errorPathToFile = System.getProperty("user.dir") + "/ERROR-CACHE/ERROR-1.txt";
+        String[] OS = OsInfo();
+        String errorPath = System.getProperty("user.dir") + OS[0];
+        String errorPathToFile = System.getProperty("user.dir") + OS[0] + "ERROR-1.txt";
 
         String path = System.getProperty("user.dir") + getDirectory;
         String pathToFile = System.getProperty("user.dir") + getDirectory + getFileName + ".txt";
@@ -271,5 +280,20 @@ class classBufferedWriter
             }
         }
 
+    }
+    public static String @NotNull [] OsInfo()
+    {
+        String[] OSInfo = new String[5];
+        String OS = System.getProperty("os.name").toLowerCase();
+        if (OS.equals("linux") || OS.equals("mac os x"))
+        {
+            OSInfo[0] = "/ERROR-CACHE/";
+            OSInfo[1] = "/StudentInfo/";
+        }
+        else {
+            OSInfo[0] = "\\ERROR-CACHE\\";
+            OSInfo[1] = "\\StudentInfo\\";
+        }
+        return OSInfo;
     }
 }
