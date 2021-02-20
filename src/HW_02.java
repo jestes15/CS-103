@@ -1,10 +1,19 @@
 public class HW_02 {
-    public static void main3() {
-        HW_functions.Q12();
+    public static void HW02() {
+        Q1();
+        Q2();
+        Q3();
+        Q4();
+        Q5();
+        Q6();
+        Q7();
+        Q8();
+        Q9();
+        Q10();
+        Q11();
+        Q12();
     }
-}
 
-class HW_functions {
     public static void Q1() {
         boolean even = false;
         if (even = true)
@@ -62,8 +71,11 @@ class HW_functions {
     public static void Q8() {System.out.print(Math.floor(3.6));}
 
     public static void Q9() {int y = 0; System.out.println("${y}CS" + 1 + 0 + 3);}
+
     public static void Q10() {final double MAX_VALUE = 909.90;}
+
     public static void Q11() { System.out.println("PROGRAM".substring(0, 6)); }
+
     public static void Q12() {
         int A = 00110101;
         int B = A << 2;

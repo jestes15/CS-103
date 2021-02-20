@@ -1,42 +1,26 @@
-import org.jetbrains.annotations.NotNull;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Locale;
 import java.util.Scanner;
-
-public class programmingAssign1
-{
-    public static void main(String[] args) {
-
-        questions.separator(1);
-        System.out.println();
-        questions.q1();
-        System.out.println();
-        questions.separator(2);
-        System.out.println();
-        questions.q2();
-        System.out.println();
-        questions.separator(3);
-        System.out.println();
-        questions.q3();
-        System.out.println();
-        questions.separator(4);
-        System.out.println();
-        questions.q4();
-    }
-}
 
 enum Grades
 {
     A, B, C, D, F
 }
 
-class questions
+public class programmingAssign1
 {
     public static Scanner sc = new Scanner(System.in);
+
+    public static void runAll() {
+        separator(1);
+        q1();
+        separator(2);
+        q2();
+        separator(3);
+        q3();
+        separator(4);
+        q4();
+
+    }
 
     public static void q1()
     {
@@ -198,7 +182,7 @@ class questions
 
     public static void q4()
     {
-        String[] OS = classBufferedWriter.OsInfo();
+        String[] OS = utilityFunctions.OsInfo();
         String name, age, major, gender, userInfo, dir = OS[1], fileName = "StudentInfo";
 
         System.out.println("What is the students name?");
@@ -213,7 +197,7 @@ class questions
 
         userInfo = name + "\n" + age + "\n" + major + "\n" + gender + "\n";
         try {
-            classBufferedWriter.writeBufferedWriter(userInfo, dir, fileName);
+            utilityFunctions.writeBufferedWriter(userInfo, dir, fileName);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -221,79 +205,13 @@ class questions
 
     public static void separator(int a)
     {
-        System.out.println("#################################");
+        System.out.println("\n#################################");
         System.out.printf("Question %d\n", a);
-        System.out.println("#################################");
+        System.out.println("#################################\n");
     }
 
     public static double toDegrees(double deg)
     {
         return deg * (Math.PI / 180.0);
-    }
-}
-
-class classBufferedWriter
-{
-
-    public static void writeBufferedWriter(String data, String getDirectory, String getFileName) throws IOException
-    {
-        String[] OS = OsInfo();
-        String errorPath = System.getProperty("user.dir") + OS[0];
-        String errorPathToFile = System.getProperty("user.dir") + OS[0] + "ERROR-1.txt";
-
-        String path = System.getProperty("user.dir") + getDirectory;
-        String pathToFile = System.getProperty("user.dir") + getDirectory + getFileName + ".txt";
-
-        File file = new File(path);
-        File fileWrite = new File(pathToFile);
-        if (file.mkdir()) {
-            System.out.println("Directory created");
-        }
-
-        File errorFile = new File(errorPath);
-        if (errorFile.mkdir()) {
-            System.out.println("Directory created");
-        }
-
-        FileWriter fr = new FileWriter(fileWrite, true);
-        BufferedWriter br = new BufferedWriter(fr);
-
-        try {
-            br.write(data + "\r\n");
-            br.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            FileWriter fw = new FileWriter(errorPathToFile, true);
-            fw.write(String.valueOf(e));
-            fw.close();
-        } finally {
-            try {
-                br.close();
-                fr.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-
-                FileWriter fw = new FileWriter(errorPathToFile, true);
-                fw.write(String.valueOf(e));
-                fw.close();
-            }
-        }
-
-    }
-    public static String @NotNull [] OsInfo()
-    {
-        String[] OSInfo = new String[5];
-        String OS = System.getProperty("os.name").toLowerCase();
-        if (OS.equals("linux") || OS.equals("mac os x"))
-        {
-            OSInfo[0] = "/ERROR-CACHE/";
-            OSInfo[1] = "/StudentInfo/";
-        }
-        else {
-            OSInfo[0] = "\\ERROR-CACHE\\";
-            OSInfo[1] = "\\StudentInfo\\";
-        }
-        return OSInfo;
     }
 }
