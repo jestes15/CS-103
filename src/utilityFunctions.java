@@ -31,7 +31,6 @@ public class utilityFunctions
         try {
             br.write(data + "\r\n");
             br.close();
-
         } catch (IOException e) {
             e.printStackTrace();
             FileWriter fw = new FileWriter(errorPathToFile, true);
@@ -49,7 +48,6 @@ public class utilityFunctions
                 fw.close();
             }
         }
-
     }
     public static String[] OsInfo()
     {
