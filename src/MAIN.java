@@ -16,7 +16,9 @@ public class MAIN {
     public static void Q1(String filename) throws FatalError, IOException {
         try {
             FileReader fileObj = new FileReader(System.getProperty("user.dir") + OsInfo() + filename);
-            HashMap<String, Integer> retVal = programmingAssign2.Q1(fileObj);
+            HashMap<String, Integer> mainHash = new HashMap<>();
+
+            HashMap<String, Integer> retVal = programmingAssign2.Q1(mainHash, fileObj);
             for (java.util.Map.Entry<String, Integer> stringIntegerEntry : retVal.entrySet()) {
                 System.out.printf("The string contains %s\n", stringIntegerEntry);
             }
@@ -48,21 +50,21 @@ class FatalError extends Exception {
 }
 
 class programmingAssign2 {
-    public static HashMap<String, Integer> Q1(Reader fileObj) throws IOException {
-        HashMap<String, Integer> mainHash = new HashMap<>();
+    public static HashMap<String, Integer> Q1(HashMap<String, Integer> mainHash, Reader fileObj) throws IOException {
         BufferedReader bufferedFileObj = new BufferedReader(fileObj);
-        String main = bufferedFileObj.readLine();
-        // String main = "James while John had had great had had had had had had had had had a better effect on the teacher.";
-        ArrayList<String> mainArrayList = new ArrayList<>(Arrays.asList(main.split(" ")));
+        String main;
+        while ((main = bufferedFileObj.readLine()) != null) {
 
-        for (String word : mainArrayList) {
-            if (mainHash.containsKey(word)) {
-                int val = mainHash.get(word);
-                val++;
-                mainHash.replace(word, val);
-            }
-            else {
-                mainHash.put(word, 1);
+            ArrayList<String> mainArrayList = new ArrayList<>(Arrays.asList(main.split(" ")));
+
+            for (String word : mainArrayList) {
+                if (mainHash.containsKey(word)) {
+                    int val = mainHash.get(word);
+                    val++;
+                    mainHash.replace(word, val);
+                } else {
+                    mainHash.put(word, 1);
+                }
             }
         }
         return mainHash;
