@@ -1,6 +1,6 @@
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -44,5 +44,27 @@ public class MAIN {
 class FatalError extends Exception {
     public FatalError(String msg) {
         super("A fatal error has occurred: " + msg);
+    }
+}
+
+class programmingAssign2 {
+    public static HashMap<String, Integer> Q1(Reader fileObj) throws IOException {
+        HashMap<String, Integer> mainHash = new HashMap<>();
+        BufferedReader bufferedFileObj = new BufferedReader(fileObj);
+        String main = bufferedFileObj.readLine();
+        // String main = "James while John had had great had had had had had had had had had a better effect on the teacher.";
+        ArrayList<String> mainArrayList = new ArrayList<>(Arrays.asList(main.split(" ")));
+
+        for (String word : mainArrayList) {
+            if (mainHash.containsKey(word)) {
+                int val = mainHash.get(word);
+                val++;
+                mainHash.replace(word, val);
+            }
+            else {
+                mainHash.put(word, 1);
+            }
+        }
+        return mainHash;
     }
 }
