@@ -22,7 +22,7 @@ public class MAIN {
             }
         } catch (FileNotFoundException e) {
             throw new FatalError("The file could not be found, please check and make sure " +
-                    "it is in the same directory as the java file");
+                    "it is in the same directory as the java file", e);
         }
     }
 
@@ -42,8 +42,8 @@ public class MAIN {
 }
 
 class FatalError extends Exception {
-    public FatalError(String msg) {
-        super("A fatal error has occurred: " + msg);
+    public FatalError(String msg, Exception e) {
+        super("A fatal error has occurred: " + msg + "::::" + e);
     }
 }
 
