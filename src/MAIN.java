@@ -45,11 +45,21 @@ class Questions {
                 System.out.printf("The string contains %s\n", stringIntegerEntry);
             }
         } catch (FileNotFoundException e) {
+            // I intended for this to throw an error that would end the program
             throw new FatalError("The file could not be found, please check and make sure " +
                     "it is in the same directory as the java file", e);
         }
     }
 
+    /**
+     * Takes a HashMap and a Reader object and reads all the lines from
+     * a file to find how many words are in the file and count how many
+     * times each word is repeated.
+     * @param mainHash
+     * @param fileObj
+     * @return HashMap
+     * @throws IOException
+     */
     private static HashMap<String, Integer> Q1UtilFunction(HashMap<String, Integer> mainHash, Reader fileObj) throws IOException {
         BufferedReader bufferedFileObj = new BufferedReader(fileObj);
         String main;
@@ -70,6 +80,10 @@ class Questions {
         return mainHash;
     }
 
+    /**
+     * Detects the OS running in the machine and gives information accordingly
+     * @return String
+     */
     private static String OsInfo() {
         String OSInfo;
         String OS = System.getProperty("os.name").toLowerCase();
@@ -84,70 +98,29 @@ class Questions {
     }
 
     public static void Q2(Scanner sc) {
-        double[] overallGPA = new double[4];
+        int[][] studentInfo = new int[4][2];
+        double[] GPA = new double[4];
         for (int i = 0; i < 4; i++) {
-            int qualityPoints;
             System.out.print("Please input the amount of credits hours for the class: ");
-            int creditHours = sc.nextInt();
+            studentInfo[i][0] = sc.nextInt();
 
             System.out.print("Please input the letter grade (one character only): ");
             String letterGrade = String.valueOf(sc.next().charAt(0)).toUpperCase();
+            switch (letterGrade) {
+                case "A" -> studentInfo[i][1] = 4;
+                case "B" -> studentInfo[i][1] = 3;
+                case "C" -> studentInfo[i][1] = 2;
+                case "D" -> studentInfo[i][1] = 1;
+                case "F" -> studentInfo[i][1] = 0;
+            }
 
-            qualityPoints = qualityPoints(creditHours, letterGrade);
-            double v = (qualityPoints / (creditHours * 1.0));
+            GPA[i] = (studentInfo[i][1] * studentInfo[i][0] * 1.0)/studentInfo[i][0];
 
-            overallGPA[i] = v;
         }
 
-        double GPA = (overallGPA[0] + overallGPA[1] + overallGPA[2] + overallGPA[3]) / 4.0;
-        System.out.printf("The students GPA is a %g\n", GPA);
+        double finalGPA = (GPA[0] + GPA[1] + GPA[2] + GPA[3]) / 4.0;
+        System.out.printf("The students GPA is a %g\n", finalGPA);
 
-    }
-
-    private static int qualityPoints(int creditHours, String letterGrade) {
-        if (creditHours > 4 || creditHours <= 0) {
-            return -1;
-        }
-        switch (letterGrade) {
-            case "A" -> {
-                return QPoints(creditHours);
-            }
-            case "B" -> {
-                return QPoints(creditHours) - creditHours;
-            }
-            case "C" -> {
-                return QPoints(creditHours) - (2*creditHours);
-            }
-            case "D" -> {
-                return QPoints(creditHours) - (3*creditHours);
-            }
-            case "F" -> {
-                return QPoints(creditHours) - (4*creditHours);
-            }
-            default -> {
-                return -1;
-            }
-        }
-    }
-
-    private static int QPoints(int creditHours) {
-        switch (creditHours) {
-            case 4 -> {
-                return 16;
-            }
-            case 3 -> {
-                return 12;
-            }
-            case 2 -> {
-                return 8;
-            }
-            case 1 -> {
-                return 4;
-            }
-            default -> {
-                return -1;
-            }
-        }
     }
 
     public static void Q3(Scanner sc) {
@@ -183,7 +156,9 @@ class Questions {
     }
 
     /**
-    Generates a 1 x n array using random integer values
+     * Returns a 1 x n array of random values
+     * @param size integer
+     * @return int[]
      */
     private static int[] randomArrayGenerator(int size) {
         Random rand = new Random();
