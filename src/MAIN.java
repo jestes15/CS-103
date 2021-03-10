@@ -55,10 +55,10 @@ class Questions {
      * Takes a HashMap and a Reader object and reads all the lines from
      * a file to find how many words are in the file and count how many
      * times each word is repeated.
-     * @param mainHash
-     * @param fileObj
+     * @param mainHash The HashMap to be worked on during runtime
+     * @param fileObj The File Reader used to read information from the file
      * @return HashMap
-     * @throws IOException
+     * @throws IOException If fileObj is not a valid path then bufferedFileObj.readLine() will throw an IOException
      */
     private static HashMap<String, Integer> Q1UtilFunction(HashMap<String, Integer> mainHash, Reader fileObj) throws IOException {
         BufferedReader bufferedFileObj = new BufferedReader(fileObj);
