@@ -115,7 +115,6 @@ class Questions {
             }
 
             GPA[i] = (studentInfo[i][1] * studentInfo[i][0] * 1.0)/studentInfo[i][0];
-
         }
 
         double finalGPA = (GPA[0] + GPA[1] + GPA[2] + GPA[3]) / 4.0;
@@ -142,17 +141,9 @@ class Questions {
     }
 
     private static void arrayOutputForQ3(int[] array) {
-        HashMap<Integer, Integer> arrayInfo = arrayMaxMin(array);
-        int a = 0;
-        for (Map.Entry<Integer, Integer> stringIntegerEntry : arrayInfo.entrySet()) {
-            if (a == 0) {
-                System.out.printf("The max is %s is its index\n", stringIntegerEntry);
-            }
-            else {
-                System.out.printf("The min is %s is its index\n", stringIntegerEntry);
-            }
-            a++;
-        }
+        Integer[][] arrayInfo = arrayMaxMin(array);
+        System.out.printf("The max is %s and its index is %s\n", arrayInfo[0][1], arrayInfo[0][0]);
+        System.out.printf("The min is %s and its index is %s\n", arrayInfo[1][1], arrayInfo[1][0]);
     }
 
     /**
@@ -166,8 +157,7 @@ class Questions {
         return randInts.toArray();
     }
 
-    private static HashMap<Integer, Integer> arrayMaxMin(int[] array) {
-        HashMap<Integer, Integer> arrayInfo = new HashMap<>();
+    private static Integer[][] arrayMaxMin(int[] array) {
         Integer max = null, min = null;
         int maxIndex = 0, minIndex = 0, iteration = 0;
         for (int value : array) {
@@ -191,10 +181,11 @@ class Questions {
             }
             iteration++;
         }
-        arrayInfo.put(max, maxIndex);
-        arrayInfo.put(min, minIndex);
 
-        return arrayInfo;
+        return new Integer[][]{
+                {maxIndex, max},
+                {minIndex, min}
+        };
     }
 
     public static void bonusQ(Scanner sc) {
